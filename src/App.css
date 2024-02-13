@@ -11,3 +11,13 @@
   justify-content: space-around;
   margin: 5px;
 }
+/* .loading-screen{
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%,-50%);
+} */
+.add-btn{
+  position: fixed;
+  bottom: 30px;
+  right: 30px
+}
