@@ -31,7 +31,7 @@ function App() {
   return (
     <>
       <div className="header">
-        <Navbar onSaveSuccess={handleSaveSuccess}/>
+        <Navbar/>
       </div>
       <div className="cards">
         {userData.map((data, idx) => (
