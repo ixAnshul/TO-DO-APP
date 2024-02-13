@@ -6,7 +6,8 @@
 }
 .cards{
   display: flex;
+  flex-wrap: wrap;
   flex-direction: row;
+  justify-content: space-around;
   margin: 5px;
-  /* padding: 7px; */
 }
