@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Card, Input, Popconfirm } from 'antd';
 import axios from 'axios';
 import './Cards.css';
@@ -82,7 +82,7 @@ const Cards = (props) => {
             </>
           ) : (
             <>
-              <a href="#" onClick={handleEditClick}>
+              <a onClick={handleEditClick}>
                 Edit
               </a>{' '}
               |{' '}
@@ -92,12 +92,12 @@ const Cards = (props) => {
                 okText="Yes"
                 cancelText="No"
               >
-                <a href="#">Delete</a>
+                <a>Delete</a>
               </Popconfirm>
             </>
           )
         }
-        style={{ width: 300, margin: 5 }}
+        style={{ width: 280, margin: 5 }}
       >
         {isEditing ? (
           <Input.TextArea
@@ -105,9 +105,10 @@ const Cards = (props) => {
             onChange={(e) => setEditedNotes(e.target.value)}
           />
         ) : (
-          <p>{props.para}</p>
+          <p className='para'>{props.para}</p>
         )}
       </Card>
+      
     </div>
   );
 };
