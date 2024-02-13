@@ -1,0 +1,12 @@
+.header{
+  top: 0;
+  width: 100%;
+  display: flex;
+  justify-content: start;
+}
+.cards{
+  display: flex;
+  flex-direction: row;
+  margin: 5px;
+  /* padding: 7px; */
+}

@@ -1,0 +1,15 @@
+.navbar{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    border: 2px solid red;
+    width: 100%;
+}
+.logotext{
+    display: flex;
+    justify-content: center;
+}
+.add-todo-btn{
+    margin-right: 50px;
+}
