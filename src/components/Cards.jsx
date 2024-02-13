@@ -59,6 +59,7 @@ const Cards = (props) => {
   return (
     <div className="cards">
       <Card
+        hoverable
         title={
           isEditing ? (
             <Input
@@ -72,11 +73,11 @@ const Cards = (props) => {
         extra={
           isEditing ? (
             <>
-              <a href="#" onClick={handleSaveClick}>
+              <a onClick={handleSaveClick}>
                 Save
               </a>{' '}
               |{' '}
-              <a href="#" onClick={handleCancelClick}>
+              <a onClick={handleCancelClick}>
                 Cancel
               </a>
             </>
