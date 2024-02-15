@@ -1,5 +1,9 @@
 body {
   margin: 0;
+  background-image: url('https://i.makeagif.com/media/1-13-2023/_3qu79.gif');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
 }
 
 
