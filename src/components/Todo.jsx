@@ -7,7 +7,7 @@ const Todo = (props) => {
   const [loading, setLoading] = useState(false);
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
-  props.onSaveSuccess();
+
   const handleAddTodo = async () => {
     try {
       // Validate if both title and description are entered
@@ -35,6 +35,9 @@ const Todo = (props) => {
       // Clear the input fields
       setTitle('');
       setDescription('');
+
+      // Call the parent component's onSaveSuccess after successfully adding a todo
+      props.onSaveSuccess();
     } catch (error) {
       console.error('Error adding todo:', error);
       // Display error message
