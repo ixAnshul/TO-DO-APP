@@ -6,33 +6,23 @@ import axios from 'axios';
 
 const { Panel } = Collapse;
 
-const Tasks = (props) => {
+const Tasks = ({ id, title, para, onSaveSuccess }) => {
   const [isEditing, setIsEditing] = useState(false);
-  const [editedTitle, setEditedTitle] = useState(props.title);
-  const [editedPara, setEditedPara] = useState(props.para);
+  const [editedTitle, setEditedTitle] = useState(title);
+  const [editedPara, setEditedPara] = useState(para);
   const [isSaving, setIsSaving] = useState(false);
 
-  const handleEditClick = () => {
-    setIsEditing(true);
-  };
+  const apiUrl = `https://apis-production-145a.up.railway.app/api/todo/${id}`;
+  const headers = { Authorization: '8ed65e15-95ee-42a4-96df-492e0aad83ef' };
+
+  const handleEditClick = () => setIsEditing(true);
 
   const handleSaveClick = async () => {
     try {
       setIsSaving(true);
-
-      // Make a PUT request to the API endpoint with the updated data
-      await axios.put(`https://apis-production-145a.up.railway.app/api/todo/${props.id}`, {
-        title: editedTitle,
-        para: editedPara,
-      }, {
-        headers: {
-          Authorization: '8ed65e15-95ee-42a4-96df-492e0aad83ef',
-        },
-      });
-
-      // Update the local state if the request is successful
+      await axios.put(apiUrl, { title: editedTitle, para: editedPara }, { headers });
       setIsEditing(false);
-      props.onSaveSuccess(); // Assuming you have a callback to handle any UI updates after saving
+      onSaveSuccess();
     } catch (error) {
       console.error('Error updating todo:', error);
     } finally {
@@ -41,62 +31,48 @@ const Tasks = (props) => {
   };
 
   const handleCancelClick = () => {
-    // Cancel the editing mode
     setIsEditing(false);
-    // Reset the edited title and para
-    setEditedTitle(props.title);
-    setEditedPara(props.para);
+    setEditedTitle(title);
+    setEditedPara(para);
   };
 
   const handleDeleteConfirm = async () => {
     try {
-      console.log('Deleting todo...');
-      await axios.delete(`https://apis-production-145a.up.railway.app/api/todo/${props.id}`, {
-        headers: {
-          Authorization: '8ed65e15-95ee-42a4-96df-492e0aad83ef',
-        },
-      });
-      console.log('Todo deleted successfully.');
-      props.onSaveSuccess();
+      await axios.delete(apiUrl, { headers });
+      onSaveSuccess();
     } catch (error) {
       console.error('Error deleting todo:', error);
     }
   };
 
-  const handleDeleteCancel = () => {
-    // Your delete button cancel logic here
-    console.log('Delete button cancelled');
-  };
+  const handleDeleteCancel = () => console.log('Delete button cancelled');
 
   return (
     <div className="main">
       <Collapse bordered={false} style={{ width: 500, background: 'none', color: 'red' }}>
         <Panel
           header={
-            <div className='mains-btns'>
+            <div className="mains-btns">
               {isEditing ? (
                 <Input
                   value={editedTitle}
                   onChange={(e) => setEditedTitle(e.target.value)}
-                  style={{
-                    width: 300,
-                    height: 25
-                  }}
+                  style={{ width: 300, height: 25 }}
                 />
               ) : (
-                <div className='title'>{props.title}</div>
+                <div className="title">{title}</div>
               )}
               <div className="btn">
                 {isEditing ? (
                   <div className="main-btn">
-                      <Button
-                        type="primary"
-                        shape="round"
-                        icon={<SaveOutlined />}
-                        onClick={handleSaveClick}
-                        style={{ marginRight: 5 }}
-                        loading={isSaving}
-                      />
+                    <Button
+                      type="primary"
+                      shape="round"
+                      icon={<SaveOutlined />}
+                      onClick={handleSaveClick}
+                      style={{ marginRight: 5 }}
+                      loading={isSaving}
+                    />
                     <Button
                       type="default"
                       shape="round"
@@ -121,15 +97,7 @@ const Tasks = (props) => {
                       okText="Yes"
                       cancelText="No"
                     >
-                      <Button
-                        shape="round"
-                        ghost
-                        danger
-                        type="primary"
-                        onClick={() => {}}
-                        style={{}}
-                        icon={<DeleteOutlined />}
-                      />
+                      <Button shape="round" ghost danger type="primary" icon={<DeleteOutlined />} />
                     </Popconfirm>
                   </>
                 )}
@@ -138,12 +106,11 @@ const Tasks = (props) => {
           }
         >
           {isEditing ? (
-            <Input.TextArea
-              value={editedPara}
-              onChange={(e) => setEditedPara(e.target.value)}
-            />
+            <Input.TextArea value={editedPara} onChange={(e) => setEditedPara(e.target.value)} />
           ) : (
-            <div id='' style={{ color: '#666666' }}>{props.para}</div>
+            <div id="" style={{ color: '#666666' }}>
+              {para}
+            </div>
           )}
         </Panel>
       </Collapse>

@@ -48,7 +48,7 @@ function App() {
           ) : (
             userData.map((data, idx) => (
               <Tasks key={idx} id={data.id} title={data.title} para={data.para} onSaveSuccess={handleSaveSuccess} />
-            ))
+              ))
           )}
         </div></div>
     </>
