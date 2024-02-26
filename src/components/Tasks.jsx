@@ -1,10 +1,13 @@
 import { useState } from 'react';
-import { Collapse, Button, Popconfirm, Input } from 'antd';
+import { Collapse, Button, Popconfirm, Input, message } from 'antd';
 import './Tasks.css';
 import { DeleteOutlined, EditOutlined, SaveOutlined, CloseOutlined } from '@ant-design/icons';
 import axios from 'axios';
 
 const { Panel } = Collapse;
+const update = import.meta.env.VITE_UPDATE
+const header = import.meta.env.VITE_HEADER
+
 
 const Tasks = ({ id, title, para, onSaveSuccess }) => {
   const [isEditing, setIsEditing] = useState(false);
@@ -12,8 +15,8 @@ const Tasks = ({ id, title, para, onSaveSuccess }) => {
   const [editedPara, setEditedPara] = useState(para);
   const [isSaving, setIsSaving] = useState(false);
 
-  const apiUrl = `https://apis-production-145a.up.railway.app/api/todo/${id}`;
-  const headers = { Authorization: '8ed65e15-95ee-42a4-96df-492e0aad83ef' };
+  const apiUrl = `${update}${id}`;
+  const headers = { Authorization: header };
 
   const handleEditClick = () => setIsEditing(true);
 
@@ -24,7 +27,7 @@ const Tasks = ({ id, title, para, onSaveSuccess }) => {
       setIsEditing(false);
       onSaveSuccess();
     } catch (error) {
-      console.error('Error updating todo:', error);
+      message.error('Error updating todo:', error);
     } finally {
       setIsSaving(false);
     }
@@ -41,11 +44,9 @@ const Tasks = ({ id, title, para, onSaveSuccess }) => {
       await axios.delete(apiUrl, { headers });
       onSaveSuccess();
     } catch (error) {
-      console.error('Error deleting todo:', error);
+      message.error('Error deleting todo:', error);
     }
   };
-
-  const handleDeleteCancel = () => console.log('Delete button cancelled');
 
   return (
     <div className="main">
@@ -93,7 +94,6 @@ const Tasks = ({ id, title, para, onSaveSuccess }) => {
                     <Popconfirm
                       title="Are you sure you want to delete?"
                       onConfirm={handleDeleteConfirm}
-                      onCancel={handleDeleteCancel}
                       okText="Yes"
                       cancelText="No"
                     >
