@@ -11,13 +11,11 @@ const Navbar = () => {
   const changeTheme = (value) => {
     setTheme(value ? 'light' : 'dark');
     if (value) {
-      console.log('dark');
       document.body.style.backgroundImage = `url(${dark})`;
       document.getElementById("title").style.animation = "Color 4s linear infinite";
       document.getElementById('todo-title').style.color = 'white'
       document.getElementById('todo-desc').style.color = 'white'
     } else {
-      console.log('light');
       document.getElementById('todo-title').style.color = 'black'
       document.getElementById('todo-desc').style.color = 'black'
       document.body.style.backgroundImage = `url(${light})`;

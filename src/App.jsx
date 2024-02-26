@@ -2,20 +2,23 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import './App.css';
 import Navbar from './components/navbar';
-import { Card } from 'antd';
+import { Card, message } from 'antd';
 import Tasks from './components/Tasks';
 import Todo from './components/Todo';
 
+const get = import.meta.env.VITE_GET
+const header = import.meta.env.VITE_HEADER
+
 const fetchData = async (setUserData, setLoading) => {
   try {
-    const response = await axios.get('https://apis-production-145a.up.railway.app/api/todo/', {
+    const response = await axios.get(get, {
       headers: {
-        Authorization: '8ed65e15-95ee-42a4-96df-492e0aad83ef',
+        Authorization: header,
       },
     });
     setUserData(response.data);
   } catch (error) {
-    console.error('Error fetching todos', error);
+    message.error('Error fetching todos', error);
   } finally {
     setLoading(false);
   }
