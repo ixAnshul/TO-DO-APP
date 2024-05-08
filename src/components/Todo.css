@@ -1,0 +1,20 @@
+.manager{
+    /* border: 2px solid blue; */
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 10px;
+    width: 500px;
+    margin: 30px;
+}
+.name{
+    display: flex;
+    flex-direction: column;
+    margin-left: 5px;
+}
+.add-todo{
+    display: flex;
+    flex-direction: row;
+
+}
